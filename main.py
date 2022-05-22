@@ -2,14 +2,11 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import csv
 from datetime import datetime
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
-import datetime as dt
 
 
 # Press the green button in the gutter to run the script.
@@ -17,14 +14,14 @@ if __name__ == '__main__':
 
     df=pd.read_csv('data.csv', sep=',')
 
-    print(df["Date"].unique())
+#    print(df["Date"].unique())
     print(df["Region"].unique())
 
-    print('\tülke gir1:')
+    print('\tilk ülkeyi giriniz:')
 
     x = input()
 
-    print('\tülke gir2:')
+    print('\tikinci ülkeyi giriniz:')
 
     y = input()
 
@@ -60,29 +57,32 @@ if __name__ == '__main__':
     X = np.array(list(benzerlik.keys()))
     Y = np.array(list(benzerlik.values()))
 
-    print(X)
-    print(Y)
+#    print(X)
+#    print(Y)
 
     xreshaped = np.reshape(X,(-1,1))
     yreshaped = np.reshape(Y,(-1,1))
 
     model = LinearRegression()
     model.fit(xreshaped, yreshaped)
-    asd = model.score(xreshaped, yreshaped)
+    modelscore = model.score(xreshaped, yreshaped)
 
-    print("Tahmin edilecek tarih")
-    aqw = "2018-01-09"
+    prediction_date = "2018-01-09"
+    print("Tahmin edilecek tarih = " + prediction_date)
 
-    guess = datetime.strptime(aqw, '%Y-%m-%d')
+
+    guess = datetime.strptime(prediction_date, '%Y-%m-%d')
     guess = guess.toordinal()
 
     guessreshaped = np.reshape(guess, (-1,1))
 
     prediction = model.predict(guessreshaped)
 
+    print("\nTahmin Edilen Benzerlik")
     print(prediction)
 
-    print(asd)
+    print("\nModel Başarısı")
+    print(modelscore)
 
 
     plt.scatter(xreshaped, yreshaped, color = "red")
